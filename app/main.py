@@ -1,12 +1,13 @@
 from config import getConfig
-from utils.bot_utils import setup_bot,typing
+from utils.bot_utils import BeerdinBot, typing
 import discord
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 
-bot = setup_bot()
+bot = BeerdinBot.setup_bot()
 voice_context = {}
+
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
