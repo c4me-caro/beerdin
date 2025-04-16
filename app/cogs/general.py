@@ -6,10 +6,10 @@ class General(commands.Cog, name="GeneralCog"):
         self.bot = bot
 
     @discord.slash_command(name="help",aliases=["h","ayuda"])
-    async def helper(self, ctx):
+    async def help(self, ctx):
         embed_help=discord.Embed(title="**Helper**", color=0xff0000)
         embed_help.add_field(name="**Test**", value="**Prueba ok**", inline=True)
-        await typing(ctx,embed=embed_help,time=1)
+        await self.bot.typing(ctx,embed=embed_help,time=1)
 
 def setup(bot):
     bot.add_cog(General(bot))

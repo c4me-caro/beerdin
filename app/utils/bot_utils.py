@@ -10,7 +10,7 @@ class Singleton(type):
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
 
-class BeerdinBot(commands.Bot, metaclass=Singleton):
+class BeerdinBot(commands.Bot, metaclass=type(Singleton)):
     def __init__(self, prefix="/", intents=None):
         if intents is None:
             intents = discord.Intents.default()
@@ -24,8 +24,8 @@ class BeerdinBot(commands.Bot, metaclass=Singleton):
             help_command=None
         )
 
-async def typing(ctx, embed=None, time:int=2):
-    async with ctx.typing():
-        await asyncio.sleep(time)
-    if embed:
-        await ctx.send(embed=embed)
+    async def typing(self, ctx, embed=None, time:int=2):
+        async with ctx.typing():
+            await asyncio.sleep(time)
+        if embed:
+            await ctx.respond(embed=embed)
