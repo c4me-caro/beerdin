@@ -1,8 +1,6 @@
-
 from functools import cache
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 class Config(BaseSettings):
     model_config = SettingsConfigDict(
@@ -14,7 +12,6 @@ class Config(BaseSettings):
     )
 
     DISCORD_TOKEN: SecretStr
-
 
 @cache
 def getConfig() -> Config:
