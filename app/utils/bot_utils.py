@@ -11,7 +11,7 @@ class Singleton(type):
         return cls._instances[cls]
 
 class BeerdinBot(commands.Bot, metaclass=Singleton):
-    def __init__(self, prefix="!", intents=None):
+    def __init__(self, prefix="/", intents=None):
         if intents is None:
             intents = discord.Intents.default()
             intents.message_content = True  # Necesario para leer mensajes
@@ -23,11 +23,6 @@ class BeerdinBot(commands.Bot, metaclass=Singleton):
             intents=intents,
             help_command=None
         )
-
-    @classmethod
-    def setup_bot(cls, prefix="!", intents=None):
-        """Método de factoría para mantener compatibilidad"""
-        return cls(prefix, intents)
 
 async def typing(ctx, embed=None, time:int=2):
     async with ctx.typing():
