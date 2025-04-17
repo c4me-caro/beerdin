@@ -4,9 +4,10 @@ version = "0.0.1"
 readme = "README.md"
 requires-python = ">=3.13.2"
 dependencies = [
-    "discord.py>=2.5.0",
-    "pydantic-settings>=2.8.0",
+    "py-cord>=2.6.1",
+    "audioop-lts>=0.2.1",
     "pydantic>=2.10.6",
+    "pydantic-settings>=2.8.0",
     "pre-commit>=4.1.0",
     "ruff>=0.9.6",
 ]

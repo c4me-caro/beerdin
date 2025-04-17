@@ -10,8 +10,8 @@ class Singleton(type):
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
 
-class BeerdinBot(commands.Bot, metaclass=Singleton):
-    def __init__(self, prefix="!", intents=None):
+class BeerdinBot(commands.Bot, metaclass=type(Singleton)):
+    def __init__(self, prefix="/", intents=None):
         if intents is None:
             intents = discord.Intents.default()
             intents.message_content = True  # Necesario para leer mensajes
@@ -24,13 +24,8 @@ class BeerdinBot(commands.Bot, metaclass=Singleton):
             help_command=None
         )
 
-    @classmethod
-    def setup_bot(cls, prefix="!", intents=None):
-        """Método de factoría para mantener compatibilidad"""
-        return cls(prefix, intents)
-
-async def typing(ctx, embed=None, time:int=2):
-    async with ctx.typing():
-        await asyncio.sleep(time)
-    if embed:
-        await ctx.send(embed=embed)
+    async def typing(self, ctx, embed=None, time:int=2):
+        async with ctx.typing():
+            await asyncio.sleep(time)
+        if embed:
+            await ctx.respond(embed=embed)
