@@ -12,6 +12,9 @@ class Config(BaseSettings):
     )
 
     DISCORD_TOKEN: SecretStr
+    DB_CONNECTION: SecretStr
+    MONGO_URI: SecretStr
+    MONGO_DB_NAME: SecretStr
 
 @cache
 def getConfig() -> Config:

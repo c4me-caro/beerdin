@@ -10,4 +10,6 @@ dependencies = [
     "pydantic-settings>=2.8.0",
     "pre-commit>=4.1.0",
     "ruff>=0.9.6",
+    "sqlalchemy>=2.0.40",
+    "pymongo>=4.12.0",
 ]
