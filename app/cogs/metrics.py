@@ -8,7 +8,7 @@ class MetricsCog(commands.Cog, name="MetricsCog"):
         self.bot = bot
         
     @discord.slash_command(name="mensajes")
-    async def analizar_mensajes(ctx, tipo: str = None, valor: str = None):
+    async def analizar_mensajes(self, ctx, tipo: str = None, valor: str = None):
         """Analiza los mensajes del canal actual según la opción elegida."""
         now = datetime.now(timezone.utc)
         today = now.date()
