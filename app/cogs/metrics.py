@@ -81,8 +81,7 @@ class MetricsCog(commands.Cog, name="MetricsCog"):
 
 
     @discord.slash_command(name="analizar")
-    async def analizar_emojis(ctx, limit: int = 100):
-        """Analiza los últimos N mensajes del canal y cuenta los emojis usados."""
+    async def analizar_emojis(self, ctx, limit: int = 100):
         emoji_counter = Counter()
 
         async for message in ctx.channel.history(limit=limit):
