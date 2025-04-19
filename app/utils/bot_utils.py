@@ -28,4 +28,6 @@ class BeerdinBot(commands.Bot, metaclass=type(Singleton)):
         async with ctx.typing():
             await asyncio.sleep(time)
         if embed:
+            embed.color = 0x00ded6
+            embed.set_footer(text="Afordin")
             await ctx.respond(embed=embed)
