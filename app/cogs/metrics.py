@@ -9,6 +9,7 @@ class MetricsCog(commands.Cog, name="MetricsCog"):
         self.bot = bot
         
     @discord.slash_command(name="analytics")
+    @commands.has_any_role('admin')
     async def analytics(self, ctx, period: int = 30):
         now = datetime.now()
         last_period = now - timedelta(days=period)

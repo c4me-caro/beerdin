@@ -58,7 +58,7 @@ def init_db():
         db = client[database]
         
     else:
-        print(f"Database '{database}' does not exist. Creating a new database.")
+        print("ERROR: Database does not exist.")
         exit(1)
         
 def get_messages_collection():
@@ -67,11 +67,13 @@ def get_messages_collection():
         init_db()
         
     if "messages" in db.list_collection_names():
-        return db["messages"]
+        collection = db["messages"]
     else:
         print("Collection 'messages' does not exist. Creating a new collection.")
-        db.create_collection("messages")
-        return db["messages"]
+        collection = db.create_collection("messages")
+        collection.create_index("message_id", unique=True)
+        
+    return collection
     
 def get_reactions_collection():
     global db
@@ -79,11 +81,14 @@ def get_reactions_collection():
         init_db()
         
     if "reactions" in db.list_collection_names():
-        return db["reactions"]
+        collection = db["reactions"]
     else:
         print("Collection 'reactions' does not exist. Creating a new collection.")
         db.create_collection("reactions")
-        return db["reactions"]
+        collection = db["reactions"]
+        collection.create_index([("message_id", 1), ("emoji", 1), ("user", 1)], unique=True)
+        
+    return collection
     
 def get_voice_logs_collection():
     global db
@@ -91,20 +96,32 @@ def get_voice_logs_collection():
         init_db()
         
     if "voicelogs" in db.list_collection_names():
-        return db["voicelogs"]
+        collection = db["voicelogs"]
     else:
         print("Collection 'voicelogs' does not exist. Creating a new collection.")
         db.create_collection("voicelogs")
-        return db["voicelogs"]
+        collection = db["voicelogs"]
+        collection.create_index([("user_id", 1), ("channel_id", 1)], unique=True)
+    
+    return collection
     
 def new_voice_log(voice_log):
-    collection = get_voice_logs_collection()
-    collection.insert_one(voice_log.to_dict())
+    try:
+        collection = get_voice_logs_collection()
+        collection.insert_one(voice_log.to_dict())
+    except Exception as e:
+        pass
     
 def new_reaction(reaction):
-    collection = get_reactions_collection()
-    collection.insert_one(reaction.to_dict())
+    try:
+        collection = get_reactions_collection()
+        collection.insert_one(reaction.to_dict())
+    except Exception as e:
+        pass
 
 def new_message(message):
-    collection = get_messages_collection()
-    collection.insert_one(message.to_dict())
+    try:
+        collection = get_messages_collection()
+        collection.insert_one(message.to_dict())
+    except Exception as e:
+        pass

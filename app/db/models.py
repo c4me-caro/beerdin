@@ -49,12 +49,16 @@ class Reactions(Base):
   emoji = Column(String, nullable=False)
 
 def init_db():
-    DATABASE_URL = getConfig().DB_CONNECTION.get_secret_value()
-    engine = create_engine(DATABASE_URL)
-    Base.metadata.create_all(bind=engine)
-    
-    global SessionLocal
-    SessionLocal = sessionmaker(autocommit=True, autoflush=True, bind=engine)
+    try:    
+        DATABASE_URL = getConfig().DB_CONNECTION.get_secret_value()
+        engine = create_engine(DATABASE_URL)
+        Base.metadata.create_all(bind=engine)
+        
+        global SessionLocal
+        SessionLocal = sessionmaker(autocommit=True, autoflush=True, bind=engine)
+    except Exception as e:
+        print(f"Error initializing database: {e}")
+        exit(1)
     
 def get_session():
     global SessionLocal

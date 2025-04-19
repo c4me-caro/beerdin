@@ -3,8 +3,8 @@ from utils.bot_utils import BeerdinBot
 import discord
 from db import dblogguer, models
 
-bot = BeerdinBot(prefix="pe/", intents=discord.Intents.all())
-extensions = ['general', 'events', 'metrics']
+bot = BeerdinBot(prefix="/", intents=discord.Intents.all())
+extensions = ['general', 'events', 'metrics', 'admin']
 
 def load_bot():
     for extension in extensions:
